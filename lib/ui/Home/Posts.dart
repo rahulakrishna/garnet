@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:garnet/ui/models/post.dart';
 import 'package:json_annotation/json_annotation.dart';
+import './Comments/Comments.dart';
 
 class Posts extends StatefulWidget {
   @override
@@ -38,90 +39,106 @@ class _PostsState extends State<Posts> {
               return ListView.builder(
                 itemCount: results == null ? 0 : results.length,
                 itemBuilder: (context, index) {
-                  print('${results[index].data.toJson()}');
-                  return Container(
-                      padding: EdgeInsets.all(8),
-                      child: Card(
-                          child: Container(
-                              padding: EdgeInsets.all(8),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    results[index].data.title,
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Comments(
+                                      commentId: results[index].data.id,
+                                    )));
+                        print('gesture');
+                      },
+                      child: Container(
+                          padding: EdgeInsets.all(8),
+                          child: Card(
+                              child: Container(
+                                  padding: EdgeInsets.all(8),
+                                  child: Column(
                                     children: <Widget>[
                                       Container(
-                                        padding: EdgeInsets.only(right: 4),
-                                        child:
-                                            Text(results[index].data.subreddit),
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          results[index].data.title,
+                                          style: TextStyle(fontSize: 18),
+                                        ),
                                       ),
-                                      Text(results[index].data.author,
-                                          style: TextStyle(color: Colors.grey)),
-                                    ],
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 8),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Container(
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
                                             padding: EdgeInsets.only(right: 4),
                                             child: Text(
-                                                '${results[index].data.score.toInt().toString()}')),
-                                        Container(
-                                          child: Text('· '),
-                                        ),
-                                        Container(
-                                            child: Text(
-                                                '${results[index].data.numComments.toInt().toString()} comments',
-                                                style: TextStyle(
-                                                    color: Colors.grey)))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                      margin: EdgeInsets.only(top: 8),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          IconButton(
-                                            icon: Icon(Icons.arrow_upward),
-                                            onPressed: () {
-                                              print('pressed');
-                                            },
+                                                results[index].data.subreddit),
                                           ),
-                                          IconButton(
-                                            icon: Icon(Icons.arrow_downward),
-                                            onPressed: () {
-                                              print('pressed');
-                                            },
-                                          ),
-                                          IconButton(
-                                            icon: Icon(Icons.star),
-                                            onPressed: () {
-                                              print('pressed');
-                                            },
-                                          ),
-                                          IconButton(
-                                            icon: Icon(Icons.reply),
-                                            onPressed: () {
-                                              print('pressed');
-                                            },
-                                          ),
-                                          IconButton(
-                                            icon: Icon(Icons.more_vert),
-                                            onPressed: () {
-                                              print('pressed');
-                                            },
-                                          ),
+                                          Text(results[index].data.author,
+                                              style: TextStyle(
+                                                  color: Colors.grey)),
                                         ],
-                                      )),
-                                ],
-                              ))));
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 8),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                                padding:
+                                                    EdgeInsets.only(right: 4),
+                                                child: Text(
+                                                    '${results[index].data.score.toInt().toString()}')),
+                                            Container(
+                                              child: Text('· '),
+                                            ),
+                                            Container(
+                                                child: Text(
+                                                    '${results[index].data.numComments.toInt().toString()} comments',
+                                                    style: TextStyle(
+                                                        color: Colors.grey)))
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                          margin: EdgeInsets.only(top: 8),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              IconButton(
+                                                icon: Icon(Icons.arrow_upward),
+                                                onPressed: () {
+                                                  print('pressed');
+                                                },
+                                              ),
+                                              IconButton(
+                                                icon:
+                                                    Icon(Icons.arrow_downward),
+                                                onPressed: () {
+                                                  print('pressed');
+                                                },
+                                              ),
+                                              IconButton(
+                                                icon: Icon(Icons.star),
+                                                onPressed: () {
+                                                  print('pressed');
+                                                },
+                                              ),
+                                              IconButton(
+                                                icon: Icon(Icons.reply),
+                                                onPressed: () {
+                                                  print('pressed');
+                                                },
+                                              ),
+                                              IconButton(
+                                                icon: Icon(Icons.more_vert),
+                                                onPressed: () {
+                                                  print('pressed');
+                                                },
+                                              ),
+                                            ],
+                                          )),
+                                    ],
+                                  )))));
                 },
               );
             } else if (snapshot.hasError) {

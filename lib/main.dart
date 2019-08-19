@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:alice/alice.dart';
 import 'ui/Home/Home.dart';
+
+Alice alice = Alice(showNotification: true);
 
 void main() => runApp(Garnet());
 
@@ -15,6 +18,7 @@ class Garnet extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(statusBarColor: Colors.green),
         child: MaterialApp(
+            navigatorKey: alice.getNavigatorKey(),
             title: appTitle,
             theme: ThemeData(fontFamily: 'Lato'),
             home: Scaffold(

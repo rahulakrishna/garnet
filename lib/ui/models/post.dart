@@ -106,7 +106,7 @@ class ChildData {
   String domain;
   bool allowLiveComments;
   dynamic selftextHtml;
-  bool likes;
+  double likes;
   dynamic suggestedSort;
   dynamic bannedAtUtc;
   dynamic viewCount;

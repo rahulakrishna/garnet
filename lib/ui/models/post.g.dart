@@ -114,7 +114,7 @@ ChildData _$ChildDataFromJson(Map<String, dynamic> json) {
       domain: json['domain'] as String,
       allowLiveComments: json['allowLiveComments'] as bool,
       selftextHtml: json['selftextHtml'],
-      likes: json['likes'] as bool,
+      likes: (json['likes'] as num)?.toDouble(),
       suggestedSort: json['suggestedSort'],
       bannedAtUtc: json['bannedAtUtc'],
       viewCount: json['viewCount'],

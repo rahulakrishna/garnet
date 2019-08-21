@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:garnet/ui/models/post.dart';
-import 'package:json_annotation/json_annotation.dart';
 import './Comments/Comments.dart';
 
 class Posts extends StatefulWidget {
@@ -10,7 +9,6 @@ class Posts extends StatefulWidget {
   _PostsState createState() => _PostsState();
 }
 
-@JsonSerializable(explicitToJson: true)
 class _PostsState extends State<Posts> {
   final String url = "https://www.reddit.com/r/AskReddit.json";
   List data;
@@ -19,7 +17,6 @@ class _PostsState extends State<Posts> {
   Future<RedditResponse> getPosts() async {
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      // print('response ${RedditResponse.fromJson(json.decode(response.body))}');
       return RedditResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load post!');
